@@ -34,30 +34,24 @@ const validateScheme = (req, res, next) => {
   }
 };
 
-/*
-  If `instructions` is missing, empty string or not a string, or
-  if `step_number` is not a number or is smaller than one:
-
-  status 400
-  {
-    "message": "invalid step"
-  }
-*/
 const validateStep = (req, res, next) => {
-  try{
+  try {
     const stepNum = req.body.step_number;
     const instructions = req.body.instructions;
-    const errorMessage = { status: 400, message: 'invalid step' };
-    
-    if(typeof stepNum !== 'number' || stepNum < 1){
+    const errorMessage = { status: 400, message: "invalid step" };
+
+    if (typeof stepNum !== "number" || stepNum < 1) {
       next(errorMessage);
-    } else if(typeof instructions !== 'string' || !instructions || instructions === null){
+    } else if (
+      typeof instructions !== "string" ||
+      !instructions ||
+      instructions === null
+    ) {
       next(errorMessage);
     } else {
       next();
     }
-  }
-  catch(err){
+  } catch (err) {
     next(err);
   }
 };
