@@ -7,8 +7,15 @@ const Schemes = require('./scheme-model');
     "message": "scheme with scheme_id <actual id> not found"
   }
 */
-const checkSchemeId = (req, res, next) => {
+const checkSchemeId = async (req, res, next) => {
+  try {
+    const validSchemeId = await Schemes.findById(req.params.scheme_id);
 
+    if (!validSchemeId){} else {}
+  }
+  catch(err){
+    next(err);
+  }
 }
 
 /*
