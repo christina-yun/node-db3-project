@@ -5,24 +5,7 @@ const Schemes = require('./scheme-model.js')
 
 const router = express.Router()
 
-/**
-  [GET] /api/schemes
-
-  response:
-  [
-    {
-      "scheme_id": 1,
-      "scheme_name": "World Domination",
-      "number_of_steps": 3
-    },
-    {
-      "scheme_id": 2,
-      "scheme_name": "Get Rich Quick",
-      "number_of_steps": 2
-    },
-    // etc
-  ]
- */
+//[GET] /api/schemes
 router.get('/', (req, res, next) => {
   Schemes.find()
     .then(schemes => {
@@ -31,27 +14,8 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-/*
-  [GET] /api/schemes/2
 
-  response:
-  {
-    "scheme_id": 2,
-    "scheme_name": "Get Rich Quick",
-    "steps": [
-      {
-          "step_id": 5,
-          "step_number": 1,
-          "instructions": "collect all the sheep in Scotland"
-      },
-      {
-          "step_id": 4,
-          "step_number": 2,
-          "instructions": "profit"
-      }
-    ]
-  }
-*/
+//[GET] /api/schemes/2
 router.get('/:scheme_id', checkSchemeId, (req, res, next) => {
   const { scheme_id } = req.params
 
@@ -62,25 +26,7 @@ router.get('/:scheme_id', checkSchemeId, (req, res, next) => {
     .catch(next)
 })
 
-/*
-  [GET] /api/schemes/2/steps
-
-  response:
-  [
-    {
-      "step_id": 5,
-      "step_number": 1,
-      "instructions": "collect all the sheep in Scotland",
-      "scheme_name": "Get Rich Quick"
-    },
-    {
-      "step_id": 4,
-      "step_number": 2,
-      "instructions": "profit",
-      "scheme_name": "Get Rich Quick"
-    }
-  ]
-*/
+//[GET] /api/schemes/2/steps
 router.get('/:scheme_id/steps', checkSchemeId, (req, res, next) => {
   const { scheme_id } = req.params
 
@@ -91,15 +37,7 @@ router.get('/:scheme_id/steps', checkSchemeId, (req, res, next) => {
     .catch(next)
 })
 
-/*
-  [POST] /api/schemes { "scheme_name": "Take Ovah" }
-
-  response:
-  {
-    "scheme_id": 8,
-    "scheme_name": "Take Ovah"
-  }
-*/
+//[POST] /api/schemes
 router.post('/', validateScheme, (req, res, next) => {
   const scheme = req.body
 
@@ -129,7 +67,7 @@ router.post('/', validateScheme, (req, res, next) => {
     }
   ]
 */
-router.post('/:scheme_id/steps', checkSchemeId, validateStep, (req, res, next) => {
+router.post('/:scheme_id/steps', checkSchemeId, /*validateStep,*/ (req, res, next) => {
   const step = req.body
   const { scheme_id } = req.params
 
